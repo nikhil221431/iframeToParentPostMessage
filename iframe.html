@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Iframe Screen</title>
+		<!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Iframe Message.</h3>
+				<div class="col-xs-12">
+					Message From Parent : <b id="parentMessage"></b>
+				</div>
+				<div class="col-xs-12 col-md-4">
+	        <div class="form-group">
+	          <label for="iframeMessage">Enter Message:</label>
+	          <input type="iframeMessage" class="form-control" id="iframeMessage">
+	        </div>
+	        <div class="form-group">
+	          <button class="btn btn-xs btn-info" id="messageToParent">
+	            Send
+	          </button>
+	        </div>
+	      </div>
+			</div>
+		</div>
+		<script type="text/javascript">
+
+			$(document).ready(function() {
+		    $('#messageToParent').click(function(event) {
+
+		      var message = $("#iframeMessage").val();
+
+		      console.log("message", message);
+
+		      var parent = window.parent;
+		      parent.postMessage(message, "*");
+		    });
+		  });
+
+		  window.addEventListener("message", iframeReceiveMessage, false);
+		  function iframeReceiveMessage(event){
+
+		    $('#parentMessage').html(event.data);
+		  }
+		</script>
+	</body>
+</html>
